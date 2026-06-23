@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Papers - A/L Guru</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: #fff; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); padding: 1.5rem; text-align: center; position: sticky; top: 0; z-index: 10; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .back { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: white; text-decoration: none; font-size: 1.5rem; }
+        .header h1 { font-size: 2rem; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .search-box { background: #1e293b; border: 2px solid #334155; border-radius: 12px; padding: 1rem; margin-bottom: 2rem; }
+        .search-box input { width: 100%; background: #0f172a; border: none; color: white; font-size: 1.1rem; padding: 0.8rem; border-radius: 8px; outline: none; }
+        .search-box input::placeholder { color: #64748b; }
+        .subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .subject-card { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; cursor: pointer; transition: all 0.3s; }
+        .subject-card:hover { transform: translateY(-3px); border-color: #3b82f6; box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3); }
+        .subject-card h3 { color: #60a5fa; margin-bottom: 0.5rem; font-size: 1.3rem; }
+        .subject-card p { opacity: 0.7; font-size: 0.9rem; }
+        .stream-badge { display: inline-block; background: #3b82f6; color: white; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; margin-top: 0.5rem; }
+        .no-results { text-align: center; padding: 3rem; opacity: 0.5; display: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="back">←</a>
+        <h1>📄 Past Papers</h1>
+    </div>
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 විෂය හොයන්න... උදා: Combined Maths, Sinhala">
+        </div>
+        <div class="subjects-grid" id="subjectsGrid"></div>
+        <div class="no-results" id="noResults">විෂයක් හමු නොවීය 😢</div>
+    </div>
+    <script>
+        const subjects = [
+            { name: 'Accounting', stream: 'Commerce', sinhala: 'ගිණුම්කරණය' },
+            { name: 'Biology', stream: 'Bio Science', sinhala: 'ජීව විද්‍යාව' },
+            { name: 'Business Studies', stream: 'Commerce', sinhala: 'ව්‍යාපාර අධ්‍යයනය' },
+            { name: 'Chemistry', stream: 'Science', sinhala: 'රසායන විද්‍යාව' },
+            { name: 'Combined Mathematics', stream: 'Physical', sinhala: 'සංයුක්ත ගණිතය' },
+            { name: 'Economics', stream: 'Commerce', sinhala: 'ආර්ථික විද්‍යාව' },
+            { name: 'English', stream: 'Languages', sinhala: 'ඉංග්‍රීසි' },
+            { name: 'Geography', stream: 'Arts', sinhala: 'භූගෝල විද්‍යාව' },
+            { name: 'History', stream: 'Arts', sinhala: 'ඉතිහාසය' },
+            { name: 'Information Technology', stream: 'All Streams', sinhala: 'තොරතුරු තාක්ෂණය' },
+            { name: 'Logic', stream: 'Arts', sinhala: 'තර්ක ශාස්ත්‍රය' },
+            { name: 'Media', stream: 'Arts', sinhala: 'සන්නිවේදනය හා මාධ්‍ය' },
+            { name: 'Physics', stream: 'Science', sinhala: 'භෞතික විද්‍යාව' },
+            { name: 'Political Science', stream: 'Arts', sinhala: 'දේශපාලන විද්‍යාව' },
+            { name: 'Sinhala', stream: 'Languages', sinhala: 'සිංහල' },
+            { name: 'Science for Technology', stream: 'Technology', sinhala: 'තාක්ෂණවේදය සඳහා විද්‍යාව' },
+        ].sort((a, b) => a.name.localeCompare(b.name));
+        const grid = document.getElementById('subjectsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        function renderSubjects(list) {
+            grid.innerHTML = '';
+            if (list.length === 0) { noResults.style.display = 'block'; return; }
+            noResults.style.display = 'none';
+            list.forEach(sub => {
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                card.onclick = () => alert(`${sub.name} - ${sub.sinhala}\n\nPast Papers ඉක්මනට එකතු කරනවා!`);
+                card.innerHTML = `<h3>${sub.name}</h3><p>${sub.sinhala}</p><span class="stream-badge">${sub.stream}</span>`;
+                grid.appendChild(card);
+            });
+        }
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = subjects.filter(s => s.name.toLowerCase().includes(query) || s.sinhala.includes(query) || s.stream.toLowerCase().includes(query));
+            renderSubjects(filtered);
+        });
+        renderSubjects(subjects);
+    </script>
+</body>
+</html>
