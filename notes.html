@@ -87,9 +87,82 @@
             { name: 'Greek', stream: 'Languages', sinhala: 'ග්‍රීක', mediums: [] },
             { name: 'Greek & Roman Civilization', stream: 'Arts', sinhala: 'ග්‍රීක හා රෝම ශිෂ්ටාචාරය', mediums: [] },
             { name: 'Higher Mathematics', stream: 'Physical', sinhala: 'උසස් ගණිතය', mediums: ['S','T','E'] },
-            { name: 'Hindi', stream: 'Languages', sinhala: 'හින්දි', mediums: [] },            { name: 'Hindu Civilization', stream: 'Arts', sinhala: 'හින්දු ශිෂ්ටාචාරය', mediums: [] },
+            { name: 'Hindi', stream: 'Languages', sinhala: 'හින්දි', mediums: [] },
+            { name: 'Hindu Civilization', stream: 'Arts', sinhala: 'හින්දු ශිෂ්ටාචාරය', mediums: [] },
             { name: 'Hinduism', stream: 'Arts', sinhala: 'හින්දු ධර්මය', mediums: ['S','T','E'] },
             { name: 'History', stream: 'Arts', sinhala: 'ඉතිහාසය', mediums: [] },
             { name: 'History of Europe', stream: 'Arts', sinhala: 'යුරෝපා ඉතිහාසය', mediums: ['S','T','E'] },
             { name: 'History of India', stream: 'Arts', sinhala: 'ඉන්දියානු ඉතිහාසය', mediums: ['S','T','E'] },
-            { name: 'History
+            { name: 'History of Modern World', stream: 'Arts', sinhala: 'නූතන ලෝක ඉතිහාසය', mediums: ['S','T','E'] },
+            { name: 'History of Sri Lanka', stream: 'Arts', sinhala: 'ශ්‍රී ලංකා ඉතිහාසය', mediums: ['S','T','E'] },
+            { name: 'Home Economics', stream: 'Arts', sinhala: 'ගෘහ ආර්ථික විද්‍යාව', mediums: [] },
+            { name: 'Information & Communication Technology', stream: 'All Streams', sinhala: 'තොරතුරු හා සන්නිවේදන තාක්ෂණය', mediums: ['S','T','E'] },
+            { name: 'Islam', stream: 'Arts', sinhala: 'ඉස්ලාම් ධර්මය', mediums: [] },
+            { name: 'Islam Civilization', stream: 'Arts', sinhala: 'ඉස්ලාමීය ශිෂ්ටාචාරය', mediums: ['T'] },
+            { name: 'Japanese', stream: 'Languages', sinhala: 'ජපන්', mediums: [] },
+            { name: 'Korean', stream: 'Languages', sinhala: 'කොරියානු', mediums: [] },
+            { name: 'Latin', stream: 'Languages', sinhala: 'ලතින්', mediums: [] },
+            { name: 'Logic & Scientific Method', stream: 'Arts', sinhala: 'තර්ක ශාස්ත්‍රය හා විද්‍යාත්මක ක්‍රමය', mediums: ['S','T','E'] },
+            { name: 'Malay', stream: 'Languages', sinhala: 'මැලේ', mediums: [] },
+            { name: 'Mathematics', stream: 'Physical', sinhala: 'ගණිතය', mediums: ['S','T','E'] },
+            { name: 'Mechanical Technology', stream: 'Technology', sinhala: 'යාන්ත්‍රික තාක්ෂණය', mediums: [] },
+            { name: 'Oriental Music', stream: 'Arts', sinhala: 'පෙරදිග සංගීතය', mediums: ['S'] },
+            { name: 'Pali', stream: 'Languages', sinhala: 'පාලි', mediums: [] },
+            { name: 'Physics', stream: 'Science', sinhala: 'භෞතික විද්‍යාව', mediums: ['S','T','E'] },
+            { name: 'Political Science', stream: 'Arts', sinhala: 'දේශපාලන විද්‍යාව', mediums: ['S','T','E'] },
+            { name: 'Russian', stream: 'Languages', sinhala: 'රුසියානු', mediums: [] },
+            { name: 'Sanskrit', stream: 'Languages', sinhala: 'සංස්කෘත', mediums: [] },
+            { name: 'Science for Technology', stream: 'Technology', sinhala: 'තාක්ෂණවේදය සඳහා විද්‍යාව', mediums: ['S','T','E'] },
+            { name: 'Sinhala', stream: 'Languages', sinhala: 'සිංහල', mediums: ['S'] },
+            { name: 'Tamil', stream: 'Languages', sinhala: 'දෙමළ', mediums: [] },
+            { name: 'Textile & Apparel Technology', stream: 'Technology', sinhala: 'රෙදිපිළි හා ඇඟලුම් තාක්ෂණය', mediums: [] },
+            { name: 'Web Technology', stream: 'Technology', sinhala: 'වෙබ් තාක්ෂණය', mediums: [] },
+            { name: 'Western Music', stream: 'Arts', sinhala: 'අපරදිග සංගීතය', mediums: [] }
+        ].sort((a, b) => a.name.localeCompare(b.name));
+
+        const grid = document.getElementById('subjectsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        const stats = document.getElementById('stats');
+        const tabs = document.querySelectorAll('.tab');
+        let currentFilter = 'all';
+
+        function renderSubjects(list) {
+            grid.innerHTML = '';
+            stats.textContent = `මුළු විෂයන්: ${list.length}`;
+            if (list.length === 0) { noResults.style.display = 'block'; return; }
+            noResults.style.display = 'none';
+            list.forEach(sub => {
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                card.onclick = function() { 
+                    alert(sub.name + ' - ' + sub.sinhala + ' - Coming Soon!');
+                };
+                const mediumBadges = sub.mediums.map(m => `<span class="medium-badge">${m}</span>`).join('');
+                card.innerHTML = `<h3>${sub.name}</h3><p>${sub.sinhala}</p><div class="mediums">${mediumBadges}</div><span class="stream-badge">${sub.stream}</span>`;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterAndRender() {
+            const query = searchInput.value.toLowerCase();
+            let filtered = subjects.filter(s => s.name.toLowerCase().includes(query) || s.sinhala.includes(query));
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(s => s.stream.includes(currentFilter));
+            }
+            renderSubjects(filtered);
+        }
+
+        searchInput.addEventListener('input', filterAndRender);
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentFilter = tab.dataset.filter;
+                filterAndRender();
+            });
+        });
+        renderSubjects(subjects);
+    </script>
+</body>
+</html>
