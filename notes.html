@@ -14,6 +14,7 @@
         .search-box { background: #1e293b; border: 2px solid #334155; border-radius: 12px; padding: 1rem; margin-bottom: 2rem; }
         .search-box input { width: 100%; background: #0f172a; border: none; color: white; font-size: 1.1rem; padding: 0.8rem; border-radius: 8px; outline: none; }
         .search-box input::placeholder { color: #64748b; }
+        .stats { text-align: center; opacity: 0.7; margin-bottom: 1rem; }
         .subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
         .subject-card { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; cursor: pointer; transition: all 0.3s; }
         .subject-card:hover { transform: translateY(-3px); border-color: #3b82f6; box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3); }
@@ -30,35 +31,83 @@
     </div>
     <div class="container">
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 විෂය හොයන්න... උදා: Combined Maths, Sinhala">
+            <input type="text" id="searchInput" placeholder="🔍 විෂය හොයන්න... උදා: Maths, සිංහල, Commerce">
         </div>
+        <div class="stats" id="stats">මුළු විෂයන්: 63</div>
         <div class="subjects-grid" id="subjectsGrid"></div>
         <div class="no-results" id="noResults">විෂයක් හමු නොවීය 😢</div>
     </div>
     <script>
         const subjects = [
             { name: 'Accounting', stream: 'Commerce', sinhala: 'ගිණුම්කරණය' },
+            { name: 'Agriculture', stream: 'Bio/Tech', sinhala: 'කෘෂි විද්‍යාව' },
+            { name: 'Arabic', stream: 'Languages', sinhala: 'අරාබි' },
+            { name: 'Art', stream: 'Arts', sinhala: 'චිත්‍ර කලාව' },
+            { name: 'Bio Resource Technology', stream: 'Technology', sinhala: 'ජෛව සම්පත් තාක්ෂණය' },
             { name: 'Biology', stream: 'Bio Science', sinhala: 'ජීව විද්‍යාව' },
+            { name: 'Buddhism', stream: 'Arts', sinhala: 'බුද්ධ ධර්මය' },
+            { name: 'Buddhist Civilization', stream: 'Arts', sinhala: 'බෞද්ධ ශිෂ්ටාචාරය' },
+            { name: 'Business Statistics', stream: 'Commerce', sinhala: 'ව්‍යාපාර සංඛ්‍යානය' },
             { name: 'Business Studies', stream: 'Commerce', sinhala: 'ව්‍යාපාර අධ්‍යයනය' },
             { name: 'Chemistry', stream: 'Science', sinhala: 'රසායන විද්‍යාව' },
+            { name: 'Chinese', stream: 'Languages', sinhala: 'චීන' },
+            { name: 'Christian Civilization', stream: 'Arts', sinhala: 'ක්‍රිස්තියානි ශිෂ්ටාචාරය' },
+            { name: 'Christianity', stream: 'Arts', sinhala: 'ක්‍රිස්තියානි ධර්මය' },
+            { name: 'Civil Technology', stream: 'Technology', sinhala: 'සිවිල් තාක්ෂණය' },
             { name: 'Combined Mathematics', stream: 'Physical', sinhala: 'සංයුක්ත ගණිතය' },
+            { name: 'Communication & Media Studies', stream: 'Arts', sinhala: 'සන්නිවේදනය හා මාධ්‍ය අධ්‍යයනය' },
+            { name: 'Dancing (Indigenous)', stream: 'Arts', sinhala: 'නර්තනය - දේශීය' },
+            { name: 'Dancing (Bharata)', stream: 'Arts', sinhala: 'නර්තනය - භාරත' },
+            { name: 'Drama & Theatre', stream: 'Arts', sinhala: 'නාට්‍ය හා රංග කලාව' },
             { name: 'Economics', stream: 'Commerce', sinhala: 'ආර්ථික විද්‍යාව' },
+            { name: 'Electrical Technology', stream: 'Technology', sinhala: 'විද්‍යුත් තාක්ෂණය' },
+            { name: 'Electronic Technology', stream: 'Technology', sinhala: 'ඉලෙක්ට්‍රොනික තාක්ෂණය' },
+            { name: 'Engineering Technology', stream: 'Technology', sinhala: 'ඉංජිනේරු තාක්ෂණවේදය' },
             { name: 'English', stream: 'Languages', sinhala: 'ඉංග්‍රීසි' },
+            { name: 'Food Technology', stream: 'Technology', sinhala: 'ආහාර තාක්ෂණය' },
+            { name: 'French', stream: 'Languages', sinhala: 'ප්‍රංශ' },
             { name: 'Geography', stream: 'Arts', sinhala: 'භූගෝල විද්‍යාව' },
+            { name: 'German', stream: 'Languages', sinhala: 'ජර්මන්' },
+            { name: 'Greek', stream: 'Languages', sinhala: 'ග්‍රීක' },
+            { name: 'Greek & Roman Civilization', stream: 'Arts', sinhala: 'ග්‍රීක හා රෝම ශිෂ්ටාචාරය' },
+            { name: 'Higher Mathematics', stream: 'Physical', sinhala: 'උසස් ගණිතය' },
+            { name: 'Hindi', stream: 'Languages', sinhala: 'හින්දි' },
+            { name: 'Hindu Civilization', stream: 'Arts', sinhala: 'හින්දු ශිෂ්ටාචාරය' },
+            { name: 'Hinduism', stream: 'Arts', sinhala: 'හින්දු ධර්මය' },
             { name: 'History', stream: 'Arts', sinhala: 'ඉතිහාසය' },
-            { name: 'Information Technology', stream: 'All Streams', sinhala: 'තොරතුරු තාක්ෂණය' },
-            { name: 'Logic', stream: 'Arts', sinhala: 'තර්ක ශාස්ත්‍රය' },
-            { name: 'Media', stream: 'Arts', sinhala: 'සන්නිවේදනය හා මාධ්‍ය' },
+            { name: 'Home Economics', stream: 'Arts', sinhala: 'ගෘහ ආර්ථික විද්‍යාව' },
+            { name: 'Information & Communication Technology', stream: 'All Streams', sinhala: 'තොරතුරු හා සන්නිවේදන තාක්ෂණය' },
+            { name: 'Islam', stream: 'Arts', sinhala: 'ඉස්ලාම් ධර්මය' },
+            { name: 'Islamic Civilization', stream: 'Arts', sinhala: 'ඉස්ලාමීය ශිෂ්ටාචාරය' },
+            { name: 'Japanese', stream: 'Languages', sinhala: 'ජපන්' },
+            { name: 'Korean', stream: 'Languages', sinhala: 'කොරියානු' },
+            { name: 'Latin', stream: 'Languages', sinhala: 'ලතින්' },
+            { name: 'Logic & Scientific Method', stream: 'Arts', sinhala: 'තර්ක ශාස්ත්‍රය හා විද්‍යාත්මක ක්‍රමය' },
+            { name: 'Mathematics', stream: 'Physical', sinhala: 'ගණිතය' },
+            { name: 'Mechanical Technology', stream: 'Technology', sinhala: 'යාන්ත්‍රික තාක්ෂණය' },
+            { name: 'Music (Eastern)', stream: 'Arts', sinhala: 'සංගීතය - පෙරදිග' },
+            { name: 'Music (Western)', stream: 'Arts', sinhala: 'සංගීතය - අපරදිග' },
+            { name: 'Music (Carnatic)', stream: 'Arts', sinhala: 'සංගීතය - කර්ණාටක' },
+            { name: 'Pali', stream: 'Languages', sinhala: 'පාලි' },
             { name: 'Physics', stream: 'Science', sinhala: 'භෞතික විද්‍යාව' },
             { name: 'Political Science', stream: 'Arts', sinhala: 'දේශපාලන විද්‍යාව' },
-            { name: 'Sinhala', stream: 'Languages', sinhala: 'සිංහල' },
+            { name: 'Russian', stream: 'Languages', sinhala: 'රුසියානු' },
+            { name: 'Sanskrit', stream: 'Languages', sinhala: 'සංස්කෘත' },
             { name: 'Science for Technology', stream: 'Technology', sinhala: 'තාක්ෂණවේදය සඳහා විද්‍යාව' },
+            { name: 'Sinhala', stream: 'Languages', sinhala: 'සිංහල' },
+            { name: 'Tamil', stream: 'Languages', sinhala: 'දෙමළ' },
+            { name: 'Textile & Apparel Technology', stream: 'Technology', sinhala: 'රෙදිපිළි හා ඇඟලුම් තාක්ෂණය' },
+            { name: 'Web Technology', stream: 'Technology', sinhala: 'වෙබ් තාක්ෂණය' },
         ].sort((a, b) => a.name.localeCompare(b.name));
+
         const grid = document.getElementById('subjectsGrid');
         const searchInput = document.getElementById('searchInput');
         const noResults = document.getElementById('noResults');
+        const stats = document.getElementById('stats');
+
         function renderSubjects(list) {
             grid.innerHTML = '';
+            stats.textContent = `මුළු විෂයන්: ${list.length}`;
             if (list.length === 0) { noResults.style.display = 'block'; return; }
             noResults.style.display = 'none';
             list.forEach(sub => {
