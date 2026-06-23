@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A/L Guru - Past Papers & Notes</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); padding: 2rem; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { opacity: 0.9; font-size: 1.1rem; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .card { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; transition: transform 0.3s; cursor: pointer; }
+        .card:hover { transform: translateY(-5px); border-color: #3b82f6; }
+        .card h3 { color: #60a5fa; margin-bottom: 0.5rem; font-size: 1.5rem; }
+        .card p { opacity: 0.8; line-height: 1.6; }
+        .btn { background: #3b82f6; color: white; padding: 0.7rem 1.5rem; border: none; border-radius: 6px; cursor: pointer; margin-top: 1rem; font-size: 1rem; }
+        .btn:hover { background: #2563eb; }
+        .footer { text-align: center; padding: 2rem; opacity: 0.6; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎓 A/L Guru</h1>
+        <p>උසස් පෙළ පසුගිය විභාග ප්‍රශ්න පත්‍ර සහ කෙටි සටහන්</p>
+    </div>
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <h3>📄 Past Papers</h3>
+                <p>සියලුම විෂයන් සඳහා පසුගිය විභාග ප්‍රශ්න පත්‍ර. A-Z පිළිවෙලට සහ Search කරලා හොයන්න.</p>
+                <button class="btn" onclick="window.location.href='papers.html'">View Papers</button>
+            </div>
+            <div class="card">
+                <h3>📚 Short Notes</h3>
+                <p>විෂය නිර්දේශයට අනුව සැකසූ කෙටි සටහන්. A-Z පිළිවෙලට සහ Search කරලා හොයන්න.</p>
+                <button class="btn" onclick="window.location.href='notes.html'">Read Notes</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Made with ❤️ for A/L Students | © 2026 A/L Guru</p>
+    </div>
+</body>
+</html>
