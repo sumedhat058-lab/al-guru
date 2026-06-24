@@ -31,24 +31,17 @@
     </div>
     <div class="container">
         <div class="subtitle">භාෂාව තෝරන්න</div>
-        <div class="medium-btn sinhala" onclick="selectMedium('සිංහල')">
-            1. සිංහල
-        </div>
-        <div class="medium-btn tamil" onclick="selectMedium('දෙමළ')">
-            2. දෙමළ
-        </div>
-        <div class="medium-btn english" onclick="selectMedium('ඉංග්‍රීසි')">
-            3. ඉංග්‍රීසි
-        </div>
+        <div class="medium-btn sinhala" onclick="selectMedium('සිංහල')">1. සිංහල</div>
+        <div class="medium-btn tamil" onclick="selectMedium('දෙමළ')">2. දෙමළ</div>
+        <div class="medium-btn english" onclick="selectMedium('ඉංග්‍රීසි')">3. ඉංග්‍රීසි</div>
+    </div>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const subject = urlParams.get('subject');
         const sinhala = urlParams.get('sinhala');
-        
         document.getElementById('subjectName').textContent = subject || 'Subject';
         document.getElementById('subjectSinhala').textContent = sinhala || '';
         document.title = subject + ' - A/L Guru';
-
         function selectMedium(medium) {
             alert(subject + ' - ' + medium + ' Medium\n\nPapers ඉක්මනට එකතු කරනවා!');
         }
