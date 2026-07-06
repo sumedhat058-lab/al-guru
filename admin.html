@@ -1,224 +1,71 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - A/L Guru</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: #fff; min-height: 100vh; padding: 1rem; }
-        .login-box, .panel { max-width: 800px; margin: 2rem auto; background: #1e293b; padding: 2rem; border-radius: 12px; border: 1px solid #334155; }
-        h1 { text-align: center; color: #60a5fa; margin-bottom: 2rem; }
-        input, select { width: 100%; background: #0f172a; border: 2px solid #334155; color: white; padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; font-size: 1rem; }
-        button { width: 100%; background: linear-gradient(135deg, #3b82f6, #1e3a8a); color: white; border: none; padding: 1rem; border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: bold; margin-top: 0.5rem; }
-        button:hover { opacity: 0.9; }
-        .hidden { display: none; }
-        .tab-btns { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .tab-btn { flex: 1; background: #334155; padding: 0.8rem; border: none; color: #94a3b8; border-radius: 8px; cursor: pointer; }
-        .tab-btn.active { background: #3b82f6; color: white; }
-        .output { background: #0f172a; border: 1px solid #334155; padding: 1rem; border-radius: 8px; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; white-space: pre-wrap; word-break: break-all; max-height: 300px; overflow-y: auto; }
-        .copy-btn { background: #10b981; }
-        label { display: block; margin-bottom: 0.3rem; color: #94a3b8; font-size: 0.9rem; }
-        .success { background: #065f46; color: #10b981; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: center; }
-        .error { background: #7f1d1d; color: #f87171; padding: 0.8rem; border-radius: 8px; margin-top: 1rem; text-align: center; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-    </style>
+<meta charset="UTF-8">
+<title>A/L Guru Admin</title>
+<style>
+body{background:#0f172a;color:white;font-family:sans-serif;padding:20px}
+.login, .panel{max-width:500px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
+input,button,select{width:100%;padding:10px;margin:10px 0;border-radius:5px;border:none}
+button{background:#3b82f6;color:white;cursor:pointer}
+.hidden{display:none}
+</style>
 </head>
 <body>
-    <div class="login-box" id="loginBox">
-        <h1>🔐 Admin Login</h1>
-        <label>Password</label>
-        <input type="password" id="password" placeholder="Password එක ගහපන්">
-        <button onclick="login()">Login</button>
-        <div id="msg"></div>
-    </div>
 
-    <div class="panel hidden" id="adminPanel">
-        <h1>⚡ A/L Guru Admin</h1>
-        <div class="tab-btns">
-            <button class="tab-btn active" onclick="switchTab('paper', event)">📄 Paper Add</button>
-            <button class="tab-btn" onclick="switchTab('note', event)">📝 Short Note Add</button>
-        </div>
-        <div id="paperForm">
-            <label>විෂය</label>
-            <select id="paperSubject">
-                <option value="">විෂය තෝරන්න</option>
-                <optgroup label="Science Stream">
-                    <option value="Physics">Physics</option>
-                    <option value="Chemistry">Chemistry</option>
-                    <option value="Biology">Biology</option>
-                    <option value="Combined Mathematics">Combined Mathematics</option>
-                    <option value="Agriculture">Agriculture</option>
-                </optgroup>
-                <optgroup label="Commerce Stream">
-                    <option value="Accounting">Accounting</option>
-                    <option value="Economics">Economics</option>
-                    <option value="Business Studies">Business Studies</option>
-                    <option value="Business Statistics">Business Statistics</option>
-                </optgroup>
-                <optgroup label="Technology Stream">
-                    <option value="ICT">ICT</option>
-                    <option value="Engineering Technology">Engineering Technology</option>
-                    <option value="Bio Systems Technology">Bio Systems Technology</option>
-                    <option value="Science for Technology">Science for Technology</option>
-                </optgroup>
-                <optgroup label="Arts Stream">
-                    <option value="Sinhala">Sinhala</option>
-                    <option value="Buddhism">Buddhism</option>
-                    <option value="Buddhist Civilization">Buddhist Civilization</option>
-                    <option value="Hinduism">Hinduism</option>
-                    <option value="Hindu Civilization">Hindu Civilization</option>
-                    <option value="Christianity">Christianity</option>
-                    <option value="Islam">Islam</option>
-                    <option value="Islamic Civilization">Islamic Civilization</option>
-                    <option value="Greek & Roman Civilization">Greek & Roman Civilization</option>
-                    <option value="History">History</option>
-                    <option value="Geography">Geography</option>
-                    <option value="Political Science">Political Science</option>
-                    <option value="Logic">Logic & Scientific Method</option>
-                    <option value="Mass Media">Mass Media & Communication</option>
-                    <option value="Art">Art</option>
-                    <option value="Dancing">Dancing</option>
-                    <option value="Music">Music</option>
-                    <option value="Drama & Theatre">Drama & Theatre</option>
-                    <option value="Home Economics">Home Economics</option>
-                </optgroup>
-                <optgroup label="Languages">
-                    <option value="English">English</option>
-                    <option value="Tamil">Tamil</option>
-                    <option value="French">French</option>
-                    <option value="German">German</option>
-                    <option value="Hindi">Hindi</option>
-                    <option value="Japanese">Japanese</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Arabic">Arabic</option>
-                    <option value="Pali">Pali</option>
-                    <option value="Sanskrit">Sanskrit</option>
-                </optgroup>
-            </select>
-            <div class="grid">
-                <div>
-                    <label>භාෂාව</label>
-                    <select id="paperMedium">
-                        <option value="Sinhala">Sinhala</option>
-                        <option value="English">English</option>
-                        <option value="Tamil">Tamil</option>
-                    </select>
-                </div>
-                <div>
-                    <label>අවුරුද්ද</label>
-                    <input type="number" id="paperYear" placeholder="2024" value="2024">
-                </div>
-            </div>
-            <label>Paper Type</label>
-            <select id="paperType">
-                <option value="Past Paper">Past Paper</option>
-                <option value="Model Paper">Model Paper</option>
-                <option value="School Paper">School Term Test</option>
-                <option value="Provincial Paper">Provincial Paper</option>
-            </select>
-            <label>PDF Link</label>
-            <input type="text" id="paperLink" placeholder="https://drive.google.com/...">
-            <button onclick="generatePaperCode()">⚡ Generate JSON Code</button>
-            <div id="paperOutput" class="hidden">
-                <div class="output" id="paperCode"></div>
-                <button class="copy-btn" onclick="copyCode('paperCode')">📋 Copy Code</button>
-                <div class="success">✅ Copy කරලා `papers.json` එකේ Array එක ඇතුලේ Paste කරපන්!</div>
-            </div>
-        </div>
-        <div id="noteForm" class="hidden">
-            <label>විෂය</label>
-            <select id="noteSubject">
-                <option value="">විෂය තෝරන්න</option>
-                <option value="Physics">Physics</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Biology">Biology</option>
-                <option value="Combined Mathematics">Combined Mathematics</option>
-                <option value="Accounting">Accounting</option>
-                <option value="Economics">Economics</option>
-                <option value="Business Studies">Business Studies</option>
-                <option value="History">History</option>
-                <option value="Geography">Geography</option>
-                <option value="Political Science">Political Science</option>
-                <option value="Sinhala">Sinhala</option>
-                <option value="Buddhism">Buddhism</option>
-                <option value="ICT">ICT</option>
-            </select>
-            <label>පාඩම / Topic</label>
-            <input type="text" id="noteTopic" placeholder="උදා: Motion, Organic Chemistry">
-            <label>Note Link / PDF</label>
-            <input type="text" id="noteLink" placeholder="https://drive.google.com/...">
-            <button onclick="generateNoteCode()">⚡ Generate JSON Code</button>
-            <div id="noteOutput" class="hidden">
-                <div class="output" id="noteCode"></div>
-                <button class="copy-btn" onclick="copyCode('noteCode')">📋 Copy Code</button>
-                <div class="success">✅ Copy කරලා `notes.json` එකේ Paste කරපන්!</div>
-            </div>
-        </div>
-    <script>
-        const ADMIN_PASS = 'alguru2026';
-        function login() {
-            const pass = document.getElementById('password').value.trim();
-            const msg = document.getElementById('msg');
-            if (pass === ADMIN_PASS) {
-                document.getElementById('loginBox').classList.add('hidden');
-                document.getElementById('adminPanel').classList.remove('hidden');
-                msg.innerHTML = '';
-            } else {
-                msg.innerHTML = '<div class="error">❌ Password වැරදියි! alguru2026 කියලා ගහපන්</div>';
-            }
-        }
-        document.getElementById('password').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') login();
-        });
-        function switchTab(tab, event) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById('paperForm').classList.toggle('hidden', tab !== 'paper');
-            document.getElementById('noteForm').classList.toggle('hidden', tab !== 'note');
-        }
-        function generatePaperCode() {
-            const subject = document.getElementById('paperSubject').value;
-            const medium = document.getElementById('paperMedium').value;
-            const year = document.getElementById('paperYear').value;
-            const type = document.getElementById('paperType').value;
-            const link = document.getElementById('paperLink').value;
-            if (!subject || !year || !link) {
-                alert('⚠️ විෂය, අවුරුද්ද, Link ඔක්කොම Fill කරපන්!');
-                return;
-            }
-            const code = `  {
-    "subject": "${subject}",
-    "medium": "${medium}",
-    "year": ${year},
-    "type": "${type}",
-    "link": "${link}"
-  },`;
-            document.getElementById('paperCode').textContent = code;
-            document.getElementById('paperOutput').classList.remove('hidden');
-        }
-        function generateNoteCode() {
-            const subject = document.getElementById('noteSubject').value;
-            const topic = document.getElementById('noteTopic').value;
-            const link = document.getElementById('noteLink').value;
-            if (!subject || !topic || !link) {
-                alert('⚠️ ඔක්කොම Fill කරපන්!');
-                return;
-            }
-            const code = `  {
-    "subject": "${subject}",
-    "topic": "${topic}",
-    "link": "${link}"
-  },`;
-            document.getElementById('noteCode').textContent = code;
-            document.getElementById('noteOutput').classList.remove('hidden');
-        }
-        function copyCode(id) {
-            navigator.clipboard.writeText(document.getElementById(id).textContent);
-            alert('✅ Copy කරා!');
-        }
-    </script>
+<div class="login" id="loginBox">
+  <h2>🔒 Admin Login</h2>
+  <input type="password" id="pass" placeholder="Password එක දාන්න">
+  <button onclick="login()">Login</button>
+</div>
+
+<div class="panel hidden" id="panelBox">
+  <h2>📄 Paper Upload Panel</h2>
+  <input type="text" id="subject" placeholder="Subject එක - උදා: Physics">
+  <input type="text" id="year" placeholder="Year - උදා: 2023">
+  <input type="text" id="link" placeholder="Google Drive Link එක">
+  <button onclick="addPaper()">Add Paper</button>
+  <hr>
+  <h3>Saved Papers:</h3>
+  <div id="list"></div>
+  <button onclick="exportData()">📋 Export Code</button>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+const ADMIN_PASS = "alGuru2026"; // මේක උඹට ඕන Password එකට මාරු කරන්න
+let papers = JSON.parse(localStorage.getItem('papers')) || [];
+
+function login(){
+  if(document.getElementById('pass').value === ADMIN_PASS){
+    document.getElementById('loginBox').classList.add('hidden');
+    document.getElementById('panelBox').classList.remove('hidden');
+    showPapers();
+  } else {alert("වැරදි Password එකක්!")}
+}
+
+function logout(){
+  document.getElementById('loginBox').classList.remove('hidden');
+  document.getElementById('panelBox').classList.add('hidden');
+}
+
+function addPaper(){
+  let s=document.getElementById('subject').value;
+  let y=document.getElementById('year').value;
+  let l=document.getElementById('link').value;
+  papers.push({subject:s,year:y,link:l});
+  localStorage.setItem('papers', JSON.stringify(papers));
+  alert("Save උනා!");
+  showPapers();
+}
+
+function showPapers(){
+  document.getElementById('list').innerHTML = papers.map(p=>`<p>${p.subject} - ${p.year}</p>`).join('');
+}
+
+function exportData(){
+  prompt("මේ Code එක Copy කරලා JS file එකට දාන්න:", JSON.stringify(papers));
+}
+</script>
 </body>
 </html>
-
