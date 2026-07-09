@@ -1,71 +1,88 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-<meta charset="UTF-8">
-<title>A/L Guru Admin</title>
-<style>
-body{background:#0f172a;color:white;font-family:sans-serif;padding:20px}
-.login, .panel{max-width:500px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
-input,button,select{width:100%;padding:10px;margin:10px 0;border-radius:5px;border:none}
-button{background:#3b82f6;color:white;cursor:pointer}
-.hidden{display:none}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A/L Guru - Admin Panel</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: white; padding: 20px; text-align: center; }
+        .box { background: #1e293b; padding: 25px; border-radius: 12px; max-width: 450px; margin: 40px auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        h2, h3 { color: #38bdf8; margin-bottom: 20px; }
+        input, select, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        button { background: #2563eb; color: white; cursor: pointer; font-weight: bold; border: none; transition: 0.2s; }
+        button:hover { background: #1d4ed8; }
+        #adminForm { display: none; }
+        textarea { width: 100%; height: 120px; margin-top: 15px; background: #000; color: #00ff00; border-radius: 6px; font-family: monospace; padding: 10px; box-sizing: border-box; }
+        .hint { font-size: 12px; color: #94a3b8; text-align: left; margin-top: 5px; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
 
-<div class="login" id="loginBox">
-  <h2>🔒 Admin Login</h2>
-  <input type="password" id="pass" placeholder="Password එක දාන්න">
-  <button onclick="login()">Login</button>
-</div>
+<div class="box">
+    <h2>A/L Guru Admin Login</h2>
+    <div id="loginBox">
+        <input type="password" id="passwordInput" placeholder="මුරපදය (Password) ඇතුලත් කරන්න">
+        <button onclick="checkPassword()">ලොග් වන්න (Log In)</button>
+    </div>
 
-<div class="panel hidden" id="panelBox">
-  <h2>📄 Paper Upload Panel</h2>
-  <input type="text" id="subject" placeholder="Subject එක - උදා: Physics">
-  <input type="text" id="year" placeholder="Year - උදා: 2023">
-  <input type="text" id="link" placeholder="Google Drive Link එක">
-  <button onclick="addPaper()">Add Paper</button>
-  <hr>
-  <h3>Saved Papers:</h3>
-  <div id="list"></div>
-  <button onclick="exportData()">📋 Export Code</button>
-  <button onclick="logout()">Logout</button>
+    <div id="adminForm">
+        <h3>නව දත්ත ඇතුලත් කිරීම</h3>
+        
+        <label style="display:block; text-align:left;">විෂය (Subject):</label>
+        <select id="subject">
+            <option value="Accounting">Accounting (ගිණුම්කරණය)</option>
+            <option value="Agricultural Science">Agricultural Science (කෘෂි විද්‍යාව)</option>
+            <option value="Agro Technology">Agro Technology (කෘෂි ">Agro Technology (කෘෂි තාක්ෂණය)</option>
+        </select>
+
+        <label style="display:block; text-align:left; margin-top:10px;">භාෂාව (Language):</label>
+        <select id="lang">
+            <option value="Sinhala">Sinhala</option>
+            <option value="Tamil">Tamil</option>
+            <option value="English">English</option>
+        </select>
+
+        <label style="display:block; text-align:left; margin-top:10px;">Google Drive Link:</label>
+        <input type="text" id="driveLink" placeholder="https://drive.google.com/...">
+        
+        <button onclick="generateJsonRow()">JSON කෝඩ් එක සාදන්න</button>
+        
+        <h4 style="margin-top:20px; text-align:left; color:#94a3b8;">පහත කෝඩ් එක පිටපත් (Copy) කරගන්න:</h4>
+        <textarea id="output" readonly></textarea>
+        <p class="hint">*මෙහි ලැබෙන කෝඩ් එක Copy කර ඔයාගේ papers.json හෝ notes.json ෆයිල් එක ඇතුලට දමා සේව් කරන්න.</p>
+    </div>
 </div>
 
 <script>
-const ADMIN_PASS = "alGuru2026"; // මේක උඹට ඕන Password එකට මාරු කරන්න
-let papers = JSON.parse(localStorage.getItem('papers')) || [];
+const correctHash = "594273235f4f475cdaa4474c3f7481956f9ac0cc6ab386dd84d9b1628ca388e4"; 
 
-function login(){
-  if(document.getElementById('pass').value === ADMIN_PASS){
-    document.getElementById('loginBox').classList.add('hidden');
-    document.getElementById('panelBox').classList.remove('hidden');
-    showPapers();
-  } else {alert("වැරදි Password එකක්!")}
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    const inputHash = CryptoJS.SHA256(input).toString();
+
+    if (inputHash === correctHash) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("adminForm").style.display = "block";
+    } else {
+        alert("වැරදි මුරපදයක්! නැවත උත්සාහ කරන්න.");
+    }
 }
 
-function logout(){
-  document.getElementById('loginBox').classList.remove('hidden');
-  document.getElementById('panelBox').classList.add('hidden');
-}
+function generateJsonRow() {
+    const subject = document.getElementById("subject").value;
+    const lang = document.getElementById("lang").value;
+    const link = document.getElementById("driveLink").value;
 
-function addPaper(){
-  let s=document.getElementById('subject').value;
-  let y=document.getElementById('year').value;
-  let l=document.getElementById('link').value;
-  papers.push({subject:s,year:y,link:l});
-  localStorage.setItem('papers', JSON.stringify(papers));
-  alert("Save උනා!");
-  showPapers();
-}
+    if(!link) {
+        alert("කරුණාකර Google Drive ලින්ක් එකක් ඇතුලත් කරන්න!");
+        return;
+    }
 
-function showPapers(){
-  document.getElementById('list').innerHTML = papers.map(p=>`<p>${p.subject} - ${p.year}</p>`).join('');
-}
-
-function exportData(){
-  prompt("මේ Code එක Copy කරලා JS file එකට දාන්න:", JSON.stringify(papers));
+    const jsonFormat = `,{\n  "subject": "${subject}",\n  "language": "${lang}",\n  "link": "${link}"\n}`;
+    document.getElementById("output").value = jsonFormat;
 }
 </script>
+
 </body>
 </html>
