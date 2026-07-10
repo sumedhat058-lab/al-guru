@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A/L Guru - Admin Panel</title>
+    <title>A/L Guru - Admin Panel (All 66 Subjects)</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: white; padding: 20px; text-align: center; }
-        .box { background: #1e293b; padding: 25px; border-radius: 12px; max-width: 450px; margin: 40px auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .box { background: #1e293b; padding: 25px; border-radius: 12px; max-width: 500px; margin: 40px auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         h2, h3 { color: #38bdf8; margin-bottom: 20px; }
         input, select, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
         button { background: #2563eb; color: white; cursor: pointer; font-weight: bold; border: none; transition: 0.2s; }
@@ -21,6 +21,7 @@
 
 <div class="box">
     <h2>A/L Guru Admin Login</h2>
+    
     <div id="loginBox">
         <input type="password" id="passwordInput" placeholder="මුරපදය (Password) ඇතුලත් කරන්න">
         <button onclick="checkPassword()">ලොග් වන්න (Log In)</button>
@@ -29,18 +30,68 @@
     <div id="adminForm">
         <h3>නව දත්ත ඇතුලත් කිරීම</h3>
         
-        <label style="display:block; text-align:left;">විෂය (Subject):</label>
+        <label style="display:block; text-align:left;">විෂය තෝරන්න (Select Subject):</label>
         <select id="subject">
             <option value="Accounting">Accounting (ගිණුම්කරණය)</option>
             <option value="Agricultural Science">Agricultural Science (කෘෂි විද්‍යාව)</option>
-            <option value="Agro Technology">Agro Technology (කෘෂි ">Agro Technology (කෘෂි තාක්ෂණය)</option>
+            <option value="Agro Technology">Agro Technology (කෘෂි තාක්ෂණය)</option>
+            <option value="Arabic">Arabic (අරාබි)</option>
+            <option value="Art">Art (චිත්‍ර කලාව)</option>
+            <option value="Bio Resource Technology">Bio Resource Technology (ජෛව සම්පත් තාක්ෂණය)</option>
+            <option value="Bio Systems Technology">Bio Systems Technology (ජෛව පද්ධති තාක්ෂණය)</option>
+            <option value="Biology">Biology (ජීව විද්‍යාව)</option>
+            <option value="Buddhism">Buddhism (බුද්ධ ධර්මය)</option>
+            <option value="Buddhist Civilization">Buddhist Civilization (බෞද්ධ ශිෂ්ටාචාරය)</option>
+            <option value="Business Statistics">Business Statistics (ව්‍යාපාර සංඛ්‍යානය)</option>
+            <option value="Business Studies">Business Studies (ව්‍යාපාර අධ්‍යයනය)</option>
+            <option value="Carnatic Music">Carnatic Music (කර්ණාටක සංගීතය)</option>
+            <option value="Chemistry">Chemistry (රසායන විද්‍යාව)</option>
+            <option value="Chinese">Chinese (චීන භාෂාව)</option>
+            <option value="Christian Civilization">Christian Civilization (ක්‍රිස්තියානි ශිෂ්ටාචාරය)</option>
+            <option value="Christianity">Christianity (ක්‍රිස්තියානි ධර්මය)</option>
+            <option value="Combined Mathematics">Combined Mathematics (සංයුක්ත ගණිතය)</option>
+            <option value="Communication & Media Studies">Communication & Media Studies (සන්නිවේදනය හා මාධ්‍ය අධ්‍යයනය)</option>
+            <option value="Dancing (Bharatha)">Dancing Bharatha (භරත නැටුම්)</option>
+            <option value="Dancing (Sinha)">Dancing Sinhala (දේශීය නැටුම්)</option>
+            <option value="Economics">Economics (ආර්ථික විද්‍යාව)</option>
+            <option value="Engineering Technology">Engineering Technology (ඉංජිනේරු තාක්ෂණය)</option>
+            <option value="English">English (ඉංග්‍රීසි සාහිත්‍යය)</option>
+            <option value="French">French (ප්‍රංශ භාෂාව)</option>
+            <option value="Geography">Geography (භූගෝල විද්‍යාව)</option>
+            <option value="German">German (ජර්මන් භාෂාව)</option>
+            <option value="Greek & Roman Civilization">Greek & Roman Civilization (ග්‍රීක හා රෝම ශිෂ්ටාචාරය)</option>
+            <option value="Hindi">Hindi (හින්දි භාෂාව)</option>
+            <option value="Hindu Civilization">Hindu Civilization (හින්දු ශිෂ්ටාචාරය)</option>
+            <option value="Hinduism">Hinduism (හින්දු ධර්මය)</option>
+            <option value="History (Indian)">History Indian (ඉන්දීය ඉතිහාසය)</option>
+            <option value="History (Modern)">History Modern (නූතන ලෝක ඉතිහාසය)</option>
+            <option value="History (Sri Lankan)">History Sri Lankan (ලංකා ඉතිහාසය)</option>
+            <option value="Home Economics">Home Economics (ගෘහ ආර්ථික විද්‍යාව)</option>
+            <option value="ICT">Information & Communication Technology (තොරතුරු තාක්ෂණය)</option>
+            <option value="Islam">Islam (ඉස්ලාම් ධර්මය)</option>
+            <option value="Islamic Civilization">Islamic Civilization (ඉස්ලාම් ශිෂ්ටාචාරය)</option>
+            <option value="Japan">Japanese (ජපන් භාෂාව)</option>
+            <option value="Logic & Scientific Method">Logic & Scientific Method (තර්ක ශාස්ත්‍රය)</option>
+            <option value="Malay">Malay (මැලේ භාෂාව)</option>
+            <option value="Mathematics">Mathematics (ගණිතය)</option>
+            <option value="Music (Oriental)">Music Oriental (පෙරදිග සංගීතය)</option>
+            <option value="Music (Western)">Music Western (අපරදිග සංගීතය)</option>
+            <option value="Pali">Pali (පාලි භාෂාව)</option>
+            <option value="Physics">Physics (භෞතික විද්‍යාව)</option>
+            <option value="Political Science">Political Science (දේශපාලන විද්‍යාව)</option>
+            <option value="Russian">Russian (රුසියන් භාෂාව)</option>
+            <option value="Sanskrit">Sanskrit (සංස්කෘත භාෂාව)</option>
+            <option value="Science for Technology">Science for Technology (තාක්ෂණවේදය සඳහා විද්‍යාව)</option>
+            <option value="Sinhala">Sinhala (සිංහල භාෂාව)</option>
+            <option value="Sociology">Sociology (සමාජ විද්‍යාව)</option>
+            <option value="Tamil">Tamil (දෙමළ භාෂාව)</option>
         </select>
 
         <label style="display:block; text-align:left; margin-top:10px;">භාෂාව (Language):</label>
         <select id="lang">
-            <option value="Sinhala">Sinhala</option>
-            <option value="Tamil">Tamil</option>
-            <option value="English">English</option>
+            <option value="S">Sinhala (S)</option>
+            <option value="T">Tamil (T)</option>
+            <option value="E">English (E)</option>
         </select>
 
         <label style="display:block; text-align:left; margin-top:10px;">Google Drive Link:</label>
